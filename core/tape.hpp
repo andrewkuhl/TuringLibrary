@@ -8,6 +8,8 @@
 #ifndef tape_h
 #define tape_h
 
+#include <iostream>
+#include <string>
 
 enum d { L, R };
 

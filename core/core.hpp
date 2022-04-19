@@ -12,6 +12,8 @@
 #pragma GCC visibility push(default)
 
 #include "tape.hpp"
+#include "machine.hpp"
+#include "turingmachine.hpp"
 
 #pragma GCC visibility pop
 #endif
