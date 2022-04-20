@@ -8,31 +8,28 @@
 #ifndef turingmachine_hpp
 #define turingmachine_hpp
 
+#include "tape.hpp"
 #include "core.hpp"
 
 template <class T>
 class TuringMachine {
    
 private:
-    Machine<T> *machine;
+    Tape<T> *tape;
+    Core<T> *core;
     
 public:
-    TuringMachine(int states, T ialph[], T talph[], Transition trans[], T start, T accept, T reject)
+    TuringMachine()
     {
-        machine = new Machine<T>;
-        
-        machine->setStates(states);
-        machine->setInput(ialph);
-        machine->setTape(talph);
-        machine->setTransitions(trans);
-        machine->setStart(start);
-        machine->setAccept(accept);
-        machine->setReject(reject);
+        tape = new Tape<T>;
+        core = new Core<T>;
     }
     ~TuringMachine()
     {
-        delete machine;
+        delete tape;
+        delete core;
     }
+
 };
 
 #endif /* turingmachine_hpp */

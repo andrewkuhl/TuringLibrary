@@ -8,7 +8,9 @@
 #ifndef tape_h
 #define tape_h
 
+
 #include <iostream>
+#include "symbol.hpp"
 #include <string>
 
 enum d { L, R };
@@ -18,10 +20,11 @@ class Tape {
 private:
     
     struct TapeNode{ // TAPE SYMBOL , LEFT POINTER, RIGHT POINTER
-            T e;
+            Symbol<T> symbol;
             TapeNode* left;
             TapeNode* right;
-                TapeNode(){left = nullptr; right = nullptr;}
+        
+            TapeNode(){left = nullptr; right = nullptr;}
         };
             
             TapeNode* head; // POINTER TO HEAD NODE
@@ -36,9 +39,9 @@ private:
             return;
         }
         
-        if(node->e)
+        if(node->symbol.get())
         {
-            std::cout << node->e << " ";
+            std::cout << node->symbol.get() << " ";
         }
         else
         {
@@ -56,10 +59,10 @@ public:
                 deleteTape(headptr->right);
                 delete headptr;
             }
-    void newSymbol(T e_){
+    void newSymbol(Symbol<T> _symbol){
         if(last!=nullptr){
             TapeNode* newsym = new TapeNode();
-            newsym->e = e_;
+            newsym->e = _symbol;
             newsym->left = last;
             last->right = newsym;
             last = last->right;
@@ -67,31 +70,16 @@ public:
         else
         {
             TapeNode* newsym = new TapeNode();
-            newsym->e = e_;
-            last = newsym;
-            curr = newsym;
-            head = newsym;
-        }
-    }
-    void newSymbol(){
-        if(last!=nullptr){
-            TapeNode* newsym = new TapeNode();
-            newsym->left = last;
-            last->right = newsym;
-            last = last->right;
-        }
-        else
-        {
-            TapeNode* newsym = new TapeNode();
+            newsym->e = _symbol;
             last = newsym;
             curr = newsym;
             head = newsym;
         }
     }
 
-    T read(){return curr->e;}
+    T read(){return curr->symbol.get();}
 
-    void write(T e_){curr->e = e_;}
+    void write(T _symbol){curr->symbol.set(_symbol);}
 
     void move(d direction){
         if(direction == d::L){
