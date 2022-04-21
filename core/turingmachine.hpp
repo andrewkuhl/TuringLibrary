@@ -29,7 +29,6 @@ public:
         delete tape;
         delete core;
     }
-
 };
 
 #endif /* turingmachine_hpp */
